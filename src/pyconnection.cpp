@@ -651,7 +651,7 @@ unique_ptr<PreparedStatement> DuckDBPyConnection::PrepareQuery(unique_ptr<SQLSta
 
 		prep = connection.Prepare(std::move(statement));
 		if (prep->HasError()) {
-			prep->error.Throw();
+			prep->GetErrorObject().Throw();
 		}
 	}
 	return prep;

@@ -322,6 +322,11 @@ build = [
     "nanobind>=2.0",
     "scikit_build_core>=0.11.4",
     "setuptools_scm>=8.0",
+    # mirrors build-system.requires; needed here because the dev workflow builds with --no-build-isolation, so uv
+    # never installs the build-system requires. Constraints mirror `test`/`bench` so the lockfile resolves identically.
+    "numpy<2; ( sys_platform != 'win32' or platform_machine != 'ARM64' ) and python_version < '3.12'",
+    "numpy>=2; ( sys_platform != 'win32' or platform_machine != 'ARM64' ) and python_version >= '3.12'",
+    "numpy>=2.3; sys_platform == 'win32' and platform_machine == 'ARM64' and python_version >= '3.11'",
 ]
 dev = [ # tooling like uv will install this automatically when syncing the environment
     "pre-commit",
